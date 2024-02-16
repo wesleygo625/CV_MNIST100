@@ -1,0 +1,237 @@
+---
+title: "HW08"
+author: "Wes Golliher"
+date: "2023-11-09"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "C:/Users/wesle/OneDrive/Documents/R/Data")
+```
+
+```{r, warning=FALSE, echo=FALSE}
+suppressMessages(library( fields))
+load("HW08MaryJane.rda")
+
+suppressMessages(library( raster))
+
+par(mfrow=c(1,2))
+
+plot( range(RifleDEM$x),range(RifleDEM$y), type="n",
+      xlab="Easting (ft)", ylab="Northing (ft)")
+image(rasterRifleImage, col=MJ.colors(256), add=TRUE)
+# Note contour uses the DEM in image format
+contour(RifleDEM, add=TRUE)
+
+lines( rifle.trail, col="red4", lty=2)
+
+s<- make.surface.grid( RifleDEM[c("x","y")] )
+z<- c( RifleDEM$z)
+library( scales)
+bubblePlot( s,z, col= alpha(topo.colors(256),.5),
+            highlight=FALSE, size=.3)
+contour(RifleDEM, col="black", add=TRUE)
+```
+
+\newpage
+1a.
+
+We can see that the elevations near the contour lines is the same as the colored elevations. Since these line up well, it appears that the elevations are well matched to the locations. 
+
+1b. 
+
+- What is the distance for 1 degree of latitude in miles?
+(See the handy function **rdist.earth** and note distances are in miles.)
+
+```{r}
+points1 = matrix(nrow=2, c(0,0,0,1))
+rdist.earth(x1 = points1)[2,1]
+```
+
+
+- What is the distance for  1 degree of longitude in miles at a *fixed* latitude of 39.8675?
+
+```{r}
+points2 = matrix(nrow=2, c(0,1,39.8675,39.8675))
+rdist.earth(x1 = points2)[2,1]
+```
+
+- Explain how the lon/ lat grid in **RifleDEM0**  ( **x**and **y** components) was transformed to units of feet in **RifleDEM**
+
+The lon/lat grid was first centered by subtracting off the mean longitude and latitude, then those numbers were multiplied by the distance in mile, and then by 5280 to get them into feet. 
+
+
+- For the ski path **rifle.trail** what is the average spacing in feet (projected onto the X-Y plane, don't include elevation)?
+
+```{r}
+d = diff(rifle.trail)
+dist = (d[,1]^2 + d[,2]^2)^(1/2)
+mean(dist)
+```
+
+- Referring to the original grid in  **RifleDEM0** how different is the width of the top of the grid compared to the bottom? (I get just a foot difference! This explains why local maps don't need to adjust for the earth's curvature.)
+
+```{r}
+left = max(RifleDEM0$x)
+right = min(RifleDEM0$x)
+top = max(RifleDEM0$y)
+bottom = min(RifleDEM0$y)
+topPoints = matrix(c(left, right, top, top), nrow=2)
+rdist.earth(x1 = topPoints)[2,1]*5280
+bottomPoints = matrix(c(left, right, bottom, bottom), nrow=2)
+rdist.earth(x1 = bottomPoints)[2,1]*5280
+```
+
+I also saw a difference of about 1 foot. 
+
+\newpage
+2a.
+
+```{r}
+dx<- mean ( diff((RifleDEM$x)) )
+dy<- mean ( diff((RifleDEM$y)) )
+
+look<- vgram.matrix(RifleDEM$z, R=150, dx=dx, dy=dy)
+
+plot(look$d, look$vgram)
+```
+
+Setting R to 150 means we will only look to 150 feet away from each point for calculating the variogram difference. Since the y-intercept appears to be quite small, the nugget variance is also quite small. This does not look like it models an exponential distribution, since it keeps increasing and looks to increase faster the further we are. The variogram could probably be estimated with a quadratic for small distances, since a quadratic could probably be made to fit this data.  
+
+\newpage
+2b. 
+
+```{r}
+ZResidual<- lm( z~ s)$residuals
+nx<- nrow( RifleDEM$z)
+ny<- ncol( RifleDEM$z)
+RifleDEMResidual<- matrix(ZResidual,nx,ny)
+ResidRifle = RifleDEM$z - RifleDEMResidual
+look2 = vgram.matrix(ResidRifle, R=150, dx=dx, dy=dy)
+plot(look2$d, look2$vgram)
+```
+
+This variogram looks more linear than the first one, increasing at a more constant rate. The variance is overall lower, getting to around 500 instead of 800, because we are subtracting the residuals, which removes some of the random error from sampling. 
+
+\newpage
+2c.
+```{r}
+obj = fastTps( s,z, aRange=300, lambda=0)
+```
+
+```{r}
+D = seq(150)
+sigma2Hat<- obj$summary["sigma2"]
+var = sigma2Hat*(1-Wendland(D, aRange=300, dimension=2, k=2))
+plot(look2$d, look2$vgram)
+lines(D, var)
+```
+
+\newpage
+2d. 
+
+```{r}
+elev = predict(obj, rifle.trail)
+DX<- diff( rifle.trail[,1])
+DY<- diff( rifle.trail[,2])
+deltaDist<- sqrt( DX^2 +DY^2)
+# add a zero so is the same length as locations
+dist.trail<- cumsum( c(0, sqrt( DX^2 +DY^2)))
+dist.trail2 = c(0, dist.trail)
+plot(elev ~ dist.trail2[-1])
+```
+
+\newpage
+
+```{r, warning = FALSE}
+st = diff(elev)/deltaDist
+deg = -1*atan( st)*(360/(2*pi))
+plot(deg ~ dist.trail[-1])
+```
+
+\newpage
+
+```{r}
+plot( range(RifleDEM$x),range(RifleDEM$y), type="n",
+      xlab="Easting (ft)", ylab="Northing (ft)")
+image(rasterRifleImage, col=MJ.colors(256), add=TRUE)
+# Note contour uses the DEM in image format
+contour(RifleDEM, add=TRUE)
+bubblePlot(rifle.trail, deg, add=TRUE, highlight=FALSE, col=magma, add.legend=TRUE)
+```
+
+\newpage
+
+```{r, include=FALSE}
+n<- nrow( s)
+minDist<- rep( NA,n)
+
+for(k in 1:n){
+  sTmp<- rbind(s[k,] )
+  minDist[k]<- min( rdist( sTmp, rifle.trail ) )
+}
+
+ind<- which( minDist<=120)
+s1<- s[ind,]
+z1<- z[ind]
+
+# check subset 
+plot( range(RifleDEM$x),range(RifleDEM$y), type="n",
+      xlab="Easting (ft)", ylab="Northing (ft)")
+image(rasterRifleImage, 
+      col=alpha(MJ.colors(256), .5), add=TRUE)
+# Note contour uses the DEM in image format
+points( s1, col='grey20', pch=".", cex=.5)
+
+lines( rifle.trail, col="red4", lty=2)
+title("Check on subset (grey)
+      around ski trail (red dashed)")
+
+```
+
+3a.
+```{r}
+obj2 = spatialProcess(s1, z1, aRange=300)
+```
+
+```{r}
+obj2$summary["tau"]
+```
+
+The tau is very small, which makes sense since these points are coming from an elevation map, which changes pretty continuously, and therefore does not have much random error in the rate at which it is changing. 
+
+
+```{r}
+elev2 = predict(obj2, rifle.trail)
+st2 = diff(elev2)/deltaDist
+deg2 = -1*atan( st2)*(360/(2*pi))
+plot(deg2 - deg ~ dist.trail[-1])
+```
+
+The differences are quite small compared to the values of the degrees (about -30 to 30). There seems to be more difference around 3500 and 4500 away from the start, but other than that most of the differences seem the same across the whole slope. 
+
+3b.
+
+You could simulate some selection of points from the ski run and fit an estimated slope curve for that subset. After calculating this many times we can see how many of the curves are within some specific path, which helps us to determine our uncertainty. For example, if we made 100 of the simulated curves, we could say that at a some specific point our 98\% CI estimate would be all points except the highest and lowest ones.
+
+\newpage
+3c.
+
+```{r}
+elevs = sim.spatialProcess(obj2, rifle.trail, M=25)
+sts = diff(elevs)/deltaDist
+degs = -1*atan( sts)*(360/(2*pi))
+```
+
+```{r}
+plot(deg2 ~ dist.trail[-1], type='l', lwd=3)
+for (i in 1:25) {
+  lines(dist.trail[-1], degs[,i], type='l', col="red", lwd=0.25)
+}
+lines(deg2 ~ dist.trail[-1], type='l', lwd=3)
+```
+
+
+
+

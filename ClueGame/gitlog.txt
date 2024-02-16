@@ -1,0 +1,78 @@
+commit 2623eedce9869315effe60ecf1e2138520c48694
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Wed Nov 24 20:12:19 2021 -0700
+
+    Added comments and refactored
+
+commit 5caec234c4d79d150d66936081123bc9f78bcf8d
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Wed Nov 24 20:02:04 2021 -0700
+
+    Fixed remaining bugs
+
+commit 07ffb620d0d5dd0df2a16b0ee6ae7ff4a89564e5
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Wed Nov 24 19:59:52 2021 -0700
+
+    If pulled to a room by suggestion, that room is a target next turn
+
+commit 7f05b0b4a62c33153265c705134f303935558513
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Wed Nov 24 19:30:02 2021 -0700
+
+    Fixed a few bugs with the cards
+
+commit 7d516ccd217c44431e2bb65514f7394c0a97ba0f
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Tue Nov 23 16:46:28 2021 -0700
+
+    Suggestions almost working, need to get update working for no guess
+
+commit 7f449b285b3b06efd363fe00f8732bd28cf02519
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Tue Nov 23 16:08:00 2021 -0700
+
+    Added cancel button to accusation window
+
+commit 0934df683501f34ad03ac3d6d2a4dbfea02ef541
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Tue Nov 23 16:02:55 2021 -0700
+
+    Fixed a bug with accusation handling
+
+commit 603e675d87ec49c339656ed9b71c86152a77acc3
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Tue Nov 23 15:55:12 2021 -0700
+
+    Game can proccess player accusations correctly.
+
+commit d0bd24f85a1949aa9cd19d84606334591924a96a
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Tue Nov 23 13:03:48 2021 -0700
+
+    Got player suggestion dialog to display correctly
+
+commit b6ca8a9a10495a45c98f13ad0094db8087aed484
+Author: Wesley Golliher <wgolliher@mines.edu>
+Date:   Tue Nov 23 11:49:22 2021 -0700
+
+    Got cards to display on the side, and finished handling a computers suggestion
+
+commit 1ba003a02eba71136d5492e5aef7f930e19c804b
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Mon Nov 22 13:52:34 2021 -0700
+
+    Got computer to present their guess
+
+commit 699a71c5083c885d775af8115cae7fbf459debb2
+Author: Wesley Golliher <wgolliher@mines.edu>
+Date:   Thu Nov 18 11:34:31 2021 -0700
+
+    Started working on suggestions
+
+commit e5a0c0f08fbf889147284b15c4588f31c5e12912
+Author: wgolliher <wgolliher@mines.edu>
+Date:   Tue Nov 16 16:37:19 2021 -0700
+
+    Fixed a bug in the tests
+

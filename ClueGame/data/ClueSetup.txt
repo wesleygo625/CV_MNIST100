@@ -1,0 +1,27 @@
+//Rooms
+Room, Kitchen, K
+Room, Dining Room, D
+Room, Office, O
+Room, Game Room, R
+Room, Living Room, L
+Room, Theater, T
+Room, Bedroom, B
+Room, Foyer, F
+Room, Garage, G
+//Other spaces
+Space, Unused, X
+Space, Walkway, W
+//Weapons
+Weapon, Knife
+Weapon, Gun
+Weapon, Candlestick
+Weapon, Pipe
+Weapon, Rope
+Weapon, Wrench
+//People
+Human Person, Miss Scarlett, Red
+Person, Professor Plum, Purple
+Person, Mrs Peacock, Blue
+Person, Mr Green, Green
+Person, Colonel Mustard, Orange
+Person, Dr White, White
