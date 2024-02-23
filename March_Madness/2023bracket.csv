@@ -1,0 +1,69 @@
+Seed,Division,Team
+FF,South,Texas A&M Corpus Chris
+FF,South,Southeast Missouri St.
+1,South,Alabama
+2,South,Arizona
+3,South,Baylor
+4,South,Virginia
+5,South,San Diego St.
+6,South,Creighton
+7,South,Missouri
+8,South,Maryland
+9,South,West Virginia
+10,South,Utah St.
+11,South,NC State
+12,South,College of Charleston
+13,South,Furman
+14,South,UC Santa Barbara
+15,South,Princeton
+FF,East,Texas Southern
+FF,East,Fairleigh Dickinson
+1,East,Purdue
+2,East,Marquette
+3,East,Kansas St.
+4,East,Tennessee
+5,East,Duke
+6,East,Kentucky
+7,East,Michigan St.
+8,East,Memphis
+9,East,Florida Atlantic
+10,East,USC
+11,East,Providence
+12,East,Oral Roberts
+13,East,Louisiana
+14,East,Montana St.
+15,East,Vermont
+FF,Midwest,Pittsburgh
+FF,Midwest,Mississippi St.
+1,Midwest,Houston
+2,Midwest,Texas
+3,Midwest,Xavier
+4,Midwest,Indiana
+5,Midwest,Miami FL
+6,Midwest,Iowa St.
+7,Midwest,Texas A&M
+8,Midwest,Iowa
+9,Midwest,Auburn
+10,Midwest,Penn St.
+12,Midwest,Drake
+13,Midwest,Kent St.
+14,Midwest,Kennesaw St.
+15,Midwest,Colgate
+16,Midwest,Northern Kentucky
+FF,West,Arizona St.
+FF,West,Nevada
+1,West,Kansas
+2,West,UCLA
+3,West,Gonzaga
+4,West,Uconn
+5,West,Saint Mary's
+6,West,TCU
+7,West,Northwestern
+8,West,Arkansas
+9,West,Illinois
+10,West,Boise St.
+12,West,VCU
+13,West,Iona
+14,West,Grand Canyon
+15,West,UNC Asheville
+16,West,Howard
