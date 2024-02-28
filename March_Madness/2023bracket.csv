@@ -11,7 +11,7 @@ FF,South,Southeast Missouri St.
 8,South,Maryland
 9,South,West Virginia
 10,South,Utah St.
-11,South,NC State
+11,South,North Carolina St.
 12,South,College of Charleston
 13,South,Furman
 14,South,UC Santa Barbara
@@ -30,7 +30,7 @@ FF,East,Fairleigh Dickinson
 10,East,USC
 11,East,Providence
 12,East,Oral Roberts
-13,East,Louisiana
+13,East,Louisiana Lafayette
 14,East,Montana St.
 15,East,Vermont
 FF,Midwest,Pittsburgh
@@ -55,7 +55,7 @@ FF,West,Nevada
 1,West,Kansas
 2,West,UCLA
 3,West,Gonzaga
-4,West,Uconn
+4,West,Connecticut
 5,West,Saint Mary's
 6,West,TCU
 7,West,Northwestern
